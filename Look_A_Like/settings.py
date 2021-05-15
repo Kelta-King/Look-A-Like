@@ -55,7 +55,7 @@ ROOT_URLCONF = 'Look_A_Like.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['UI'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,4 +118,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/Static/'
+import os.path
+
+STATIC_ROOT = ''
+STATIC_URL = '/static/'
+STATICFILES_DIRS = ( os.path.join(BASE_DIR, "static"), )
