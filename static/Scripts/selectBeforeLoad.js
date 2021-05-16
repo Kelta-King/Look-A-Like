@@ -1,5 +1,4 @@
 
 window.onload = (function(){
-    let x = document.querySelector("#loader");
-    x.style.display = 'none';
+    document.body.querySelector("#loader").style.display = 'none';
 });
