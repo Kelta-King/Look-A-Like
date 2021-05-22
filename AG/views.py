@@ -4,4 +4,4 @@ from django.http import HttpResponse
 # Create your views here.
 
 def uploadImagePage(request):
-    return HttpResponse("AG")
+    return render(request, "avengersFileUpload.html")
