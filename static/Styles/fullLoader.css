@@ -1,7 +1,7 @@
 /* Absolute Center Spinner */
 .loading {
     position: fixed;
-    z-index: 999;
+    z-index: 10;
     height: 2em;
     width: 2em;
     overflow: show;
@@ -21,8 +21,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(rgba(20, 20, 20,.8), rgba(0, 0, 0, .8));
-    background: -webkit-radial-gradient(rgba(20, 20, 20,.8), rgba(0, 0, 0,.8));
+    background: radial-gradient(rgba(25,25,112, 1), rgba(0, 0, 0, 1));
+    background: -webkit-radial-gradient(rgba(25,25,112, 1), rgba(0, 0, 0, 1));
 }
   
 /* :not(:required) hides these rules from IE9 and below */

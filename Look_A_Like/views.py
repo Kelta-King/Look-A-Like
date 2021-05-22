@@ -13,7 +13,8 @@ def selectPage(request):
     image_data = open(abs_path, "rb")
     
     converted_string = "data:image/png;base64, " + str(base64.b64encode(image_data.read()).decode('utf-8'))
-    return render(request, 'selectUniverse.html', {'img_url':converted_string})
+    universes = [['Avengers', 'avg'], ['Harry Potter', 'hp']]
+    return render(request, 'selectUniverse.html', {'img_url':converted_string, 'universes':universes})
 
 """
 
