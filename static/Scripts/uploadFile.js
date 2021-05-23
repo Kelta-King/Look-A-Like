@@ -1,32 +1,23 @@
 async function uploadToServer(file){
-    //const csrftoken = $.cookie("csrftoken")
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
+    console.log(file);
+    const fd = new FormData();
+    //file.lastModifiedDate = new Date();
+    //file.name = "image.jpeg";
+    fd.append('image', file, 'user.jpeg');
+    //console.log(fd);
+    for (var key of fd.entries()) {
+        console.log(key[0] + ', ' + key[1]);
     }
-    const csrftoken = getCookie('csrftoken');
-    const request = new Request('avg/getFile', {headers: {'HTTP_X_CSRFTOKEN': csrftoken}});
-    console.log(csrftoken);
-    
+    const csrf_token = $('input[name="csrfmiddlewaretoken"]').val();
     $.ajax({
         url: 'avg/getFile',
+        csrfmiddlewaretoken: csrf_token,
+        enctype: "multipart/form-data",
         type: 'POST',
-        data: file,
+        data: fd,
         cache: false,
         processData: false,
-        contentType: file,
-        headers:{"HTTP_X_CSRF_TOKEN":csrftoken},
+        contentType: false,
         success: function(data) {
             alert(data);
         }
@@ -40,8 +31,8 @@ async function handleImageUpload(event) {
     document.body.querySelector("#content").style.display = 'none';
 
     const imageFile = event.target.files[0];
-    console.log('originalFile instanceof Blob', imageFile instanceof Blob); // true
-    console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
+    //console.log('originalFile instanceof Blob', imageFile instanceof Blob); // true
+    //console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
   
     const options = {
       maxSizeMB: 1,
@@ -52,8 +43,8 @@ async function handleImageUpload(event) {
       const compressedFile = await imageCompression(imageFile, options);
       event.target.files[0] = compressedFile
       //event.target.files[0].name = "Image.jpg";
-      console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
-      console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+      //console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+      //console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
       document.body.querySelector("#loader").style.display = 'none';
       document.body.querySelector("#content").style.display = 'block';
       await uploadToServer(compressedFile);
