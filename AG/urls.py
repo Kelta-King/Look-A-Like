@@ -5,4 +5,5 @@ from . import views
 
 urlpatterns = [
     path('', views.uploadImagePage),
+    path('/getFile', views.imageUpload)
 ]
