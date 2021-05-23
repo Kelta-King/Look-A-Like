@@ -10,7 +10,7 @@ def imageUpload(request):
 
     if request.method == "POST":
         #file = UploadFileForm(request.POST, request.FILES)
-        print(request.FILES)
+        print(request)
         return HttpResponse("Yoman")
     else:
         print("Smething went wrong")
