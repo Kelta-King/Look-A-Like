@@ -21,3 +21,6 @@ def bgImage():
 
 def webImage():
     return "..\\Graphics\\Background\\Imgs\\"
+
+def uploadedImage():
+    return "..\\Users\\DPS\\"
