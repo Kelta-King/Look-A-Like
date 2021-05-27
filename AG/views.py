@@ -15,18 +15,26 @@ def uploadImagePage(request):
 def imageUpload(request):
 
     if request.method == "POST":
-        #file = UploadFileForm(request.POST, request.FILES)
+        
+        # Get files
         image = request.FILES['image']
+
+        # Save file
         file_name = default_storage.save("Users\\DPS\\" + image.name, image)
+        
+        # Openning file process
         filey = default_storage.open(file_name)
         current_path = os.path.dirname(__file__)
         relative_path = path.uploadedImage() + str(image.name)
         abs_path = os.path.join(current_path, relative_path)
-        #print(abs_path)
+        
+        # Opening image from the absolute path
         image_data = open(abs_path, "rb")
-        #print(image_data.read())
+        
+        # Converting image to base64 string
         converted_string = "data:image/jpeg;base64, " + str(base64.b64encode(image_data.read()).decode('utf-8'))
-        #print(converted_string)
+        
+        # URL return
         return HttpResponse(converted_string)
     else:
         print("Smething went wrong")
