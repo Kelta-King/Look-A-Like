@@ -1,10 +1,7 @@
 async function uploadToServer(file){
-    console.log(file);
+    
     const fd = new FormData();
-    //file.lastModifiedDate = new Date();
-    //file.name = "image.jpeg";
     fd.append('image', file, 'user.jpeg');
-    //console.log(fd);
     for (var key of fd.entries()) {
         console.log(key[0] + ', ' + key[1]);
     }
@@ -26,14 +23,12 @@ async function uploadToServer(file){
 }
 
 async function handleImageUpload(event) {
-
+  
     document.body.querySelector("#loader").style.display = 'block';
     document.body.querySelector("#content").style.display = 'none';
 
     const imageFile = event.target.files[0];
-    //console.log('originalFile instanceof Blob', imageFile instanceof Blob); // true
-    //console.log(`originalFile size ${imageFile.size / 1024 / 1024} MB`);
-  
+    
     const options = {
       maxSizeMB: 1,
       maxWidthOrHeight: 1920,
@@ -42,13 +37,12 @@ async function handleImageUpload(event) {
     try {
       const compressedFile = await imageCompression(imageFile, options);
       event.target.files[0] = compressedFile
-      //event.target.files[0].name = "Image.jpg";
-      //console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
-      //console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+      
       document.body.querySelector("#loader").style.display = 'none';
       document.body.querySelector("#content").style.display = 'block';
       await uploadToServer(compressedFile);
-    } catch (error) {
+    }
+    catch (error) {
       console.log(error);
     }
   
