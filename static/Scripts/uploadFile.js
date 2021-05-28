@@ -27,7 +27,8 @@ async function uploadToServer(file){
         processData: false,
         contentType: false,
         success: function(data) {
-            document.querySelector("#images").innerHTML = `<img src='${data}' />`;
+            //document.querySelector("#images").innerHTML = `<img src='${data}' />`;
+            console.log(data);
         }
     });
 
