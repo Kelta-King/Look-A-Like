@@ -1,7 +1,18 @@
 async function uploadToServer(file){
     
     const fd = new FormData();
-    fd.append('image', file, 'user.jpeg');
+    const d = new Date();
+    const n = d.getTime();
+    const x = file.name.split('.');
+    if(x.length != 2){
+      endLoader();
+      showError("Please upload proper format image")
+      return false;
+    }
+    
+    console.log(file.name);
+    const name = String(n) + "." + String(x[1]);
+    fd.append('image', file, name);
     for (var key of fd.entries()) {
         console.log(key[0] + ', ' + key[1]);
     }
@@ -16,7 +27,8 @@ async function uploadToServer(file){
         processData: false,
         contentType: false,
         success: function(data) {
-            document.querySelector("#images").innerHTML = `<img src='${data}' />`;
+            //document.querySelector("#images").innerHTML = `<img src='${data}' />`;
+            console.log(data);
         }
     });
 
@@ -24,11 +36,14 @@ async function uploadToServer(file){
 
 async function handleImageUpload(event) {
   
-    document.body.querySelector("#loader").style.display = 'block';
-    document.body.querySelector("#content").style.display = 'none';
-
+    startLoader();
     const imageFile = event.target.files[0];
     
+    if(String(imageFile.type) !== 'image/jpeg' && String(imageFile.type) !== 'image/jpg' && String(imageFile.type) !== 'image/png'){
+      endLoader();
+      showError(`Please provide JPEG or PNG images. Only jpeg and png formats are allowed. Provided format: ${imageFile.type}`);
+      return false;
+    }
     const options = {
       maxSizeMB: 1,
       maxWidthOrHeight: 1920,
@@ -42,24 +57,8 @@ async function handleImageUpload(event) {
       document.body.querySelector("#content").style.display = 'block';
       await uploadToServer(compressedFile);
     }
-    catch (error) {
+    catch(error){
       console.log(error);
     }
   
   }
-
-(function(){
-    let upload = document.querySelector("#upload");
-    upload.addEventListener('click', (event) => {
-
-        event.preventDefault();
-        const check = new Check();
-        const frm = document.querySelector("#formUpl");
-        const file = document.querySelector("#upl").files[0];
-        //console.log(file);
-        if(check.isUndefined(file)) return false;
-        //console.log(file['size']);
-        if(check.dataTypeCheck(file['type'])) return false;
-
-    });
-})();
