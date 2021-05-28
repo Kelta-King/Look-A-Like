@@ -35,6 +35,8 @@ async function uploadToServer(file){
 
 async function handleImageUpload(event) {
   
+    showError("yo");
+    return false;
     startLoader();
     const imageFile = event.target.files[0];
     
@@ -56,24 +58,8 @@ async function handleImageUpload(event) {
       document.body.querySelector("#content").style.display = 'block';
       await uploadToServer(compressedFile);
     }
-    catch (error) {
+    catch(error){
       console.log(error);
     }
   
   }
-
-(function(){
-    let upload = document.querySelector("#upload");
-    upload.addEventListener('click', (event) => {
-
-        event.preventDefault();
-        const check = new Check();
-        const frm = document.querySelector("#formUpl");
-        const file = document.querySelector("#upl").files[0];
-        
-        if(check.isUndefined(file)) return false;
-        
-        if(check.dataTypeCheck(file['type'])) return false;
-
-    });
-})();
