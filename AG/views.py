@@ -42,7 +42,7 @@ def imageUpload(request):
         relative_path = mypath
         mypath = os.path.join(current_path, relative_path)
 
-        print(cl.checkListAvengers(mypath))
+        #print(cl.checkListAvengers(mypath))
         return HttpResponse(str(cl.checkListAvengers(mypath)))
     else:
         print("Smething went wrong")

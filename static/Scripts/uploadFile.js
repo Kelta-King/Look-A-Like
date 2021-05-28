@@ -35,14 +35,12 @@ async function uploadToServer(file){
 
 async function handleImageUpload(event) {
   
-    showError("yo");
-    return false;
     startLoader();
     const imageFile = event.target.files[0];
     
     if(String(imageFile.type) !== 'image/jpeg' && String(imageFile.type) !== 'image/jpg' && String(imageFile.type) !== 'image/png'){
       endLoader();
-      showError(`Only jpeg and png formats are allowed. Provided format: ${imageFile.type}`);
+      showError(`Please provide JPEG or PNG images. Only jpeg and png formats are allowed. Provided format: ${imageFile.type}`);
       return false;
     }
     const options = {

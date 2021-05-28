@@ -46,6 +46,7 @@ const showError = (value = ErrorThrow.emptyParameter()) => {
 
     divModal.setAttribute('id', 'errorModal');
     divModal.setAttribute('style', 'display:block');
+    divModalContent.setAttribute('id', 'modal-content');
     divModalContent.setAttribute('style', 'max-width:600px');
 
     endTimes.onclick = function(evt){
@@ -74,11 +75,11 @@ const showError = (value = ErrorThrow.emptyParameter()) => {
 }
 
 const deleteError = (modalId) => {
-    const myNode = document.getElementById(modalId);
-    while (myNode.firstChild) {
-        myNode.removeChild(myNode.lastChild);
+    const node = document.getElementById(modalId);
+    while (node.firstChild) {
+        node.removeChild(node.lastChild);
     }
-    myNode.remove();
+    node.remove();
 }
 
 const startLoader = () => {
