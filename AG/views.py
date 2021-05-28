@@ -5,8 +5,7 @@ import base64
 from django.core.files.storage import default_storage
 import os
 from Graphics.snippets import paths as path
-
-# Create your views here.
+from Resources import characterLists as cl
 
 def uploadImagePage(request):
     return render(request, "avengersFileUpload.html")
@@ -16,6 +15,7 @@ def imageUpload(request):
 
     if request.method == "POST":
         
+        """
         # Get files
         image = request.FILES['image']
 
@@ -36,6 +36,14 @@ def imageUpload(request):
         
         # URL return
         return HttpResponse(converted_string)
+        """
+        mypath = path.avgImgCheckPath()
+        current_path = os.path.dirname(__file__)
+        relative_path = mypath
+        mypath = os.path.join(current_path, relative_path)
+
+        print(cl.checkListAvengers(mypath))
+        return HttpResponse(str(cl.checkListAvengers(mypath)))
     else:
         print("Smething went wrong")
         return HttpResponse("Something went wrong")

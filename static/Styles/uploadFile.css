@@ -4,7 +4,7 @@ input[type='file'] {
     cursor: move;
     position:relative;
 }
-input[type='file']:before {
+    input[type='file']:before {
     content: "drag & drop your files here";
     display: block;
     position: absolute;
